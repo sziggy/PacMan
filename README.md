@@ -1,4 +1,4 @@
 PacMan
 ======
 
-banana
+Java pac-man project
