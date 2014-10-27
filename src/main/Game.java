@@ -208,13 +208,9 @@ public class Game extends Canvas implements Runnable {
         	nextPlayerPosX = nextPlayerPosX - 625;
         }
         
-        // lets make sure the next location doesnt collide with a wall, if so then dont move the pacman!
-        if(!doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_WALL)) {
+         // lets make sure the next location doesnt collide with a wall, if so then dont move the pacman!
+        if(!doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_WALL)&& !doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_GHOST_SPAWN)) {
             playerLocation.setLocation(nextPlayerPosX, nextPlayerPosY);
-            
-            if(!doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_GHOST_SPAWN)) {
-                playerLocation.setLocation(nextPlayerPosX, nextPlayerPosY);
-            }
         }
     }
 
