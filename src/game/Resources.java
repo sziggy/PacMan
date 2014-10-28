@@ -29,7 +29,7 @@ public final class Resources {
     public static BufferedImage BIG_POINT = new BufferedImage(TILE_WIDTH, TILE_HEIGHT, BufferedImage.TYPE_INT_RGB);
 
     public static void loadResources() {
-        try {
+        try { 
             BACKGROUND = ImageIO.read(new File("res\\Background.png"));
             WALL = ImageIO.read(new File("res\\maptile.png"));
             PACMAN = ImageIO.read(new File("res\\pacman.png"));

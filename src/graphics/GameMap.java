@@ -8,7 +8,7 @@ public abstract class GameMap {
     public static final int TILE_BIG_POINT = 3;
     public static final int TILE_START_LOCATION = 5;
 
-
+ 
 
     public abstract int getWidth();
     public abstract int getHeight();

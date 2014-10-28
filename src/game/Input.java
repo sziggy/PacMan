@@ -11,7 +11,7 @@ public class Input implements KeyListener
 
     public void keyTyped(KeyEvent e) {
     }
-
+ 
     /** Here we have a rather basic key listener
      *  It is set that you can only go left right up or down right now
      *  If more directions are needed delete the "other key = false"

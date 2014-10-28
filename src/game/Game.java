@@ -260,7 +260,7 @@ public class Game extends Canvas implements Runnable {
         corners[3] = currentLevel.getTileAt(tileLocation.x, tileLocation.y);
         return corners;
     }
-
+ 
     /**
      * Checks if any corners of the player intersects with the given mapTileType
      * @param screenX

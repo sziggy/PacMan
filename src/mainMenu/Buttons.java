@@ -16,13 +16,6 @@ import java.awt.event.ActionListener;
 
 public class Buttons{
 	
-	
-	//private graphics.settings settings;
-	
-	
-	
-	
-	
 	/** in this class we draw the buttons that are showed on the main_menu screen
 	 *  try to get them working in a separate class
 	 */

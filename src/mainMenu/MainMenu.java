@@ -12,7 +12,7 @@ public class MainMenu {
 
 	public MainMenu() {
 		drawMainMenu(Game.bufferGraphics);
-	}
+	} 
 	
 	public void drawMainMenu(Graphics g) {
 		g.drawImage(Resources.BACKGROUND, 0, 0, Resources.BACKGROUND.getWidth(), Resources.BACKGROUND.getHeight(), null);
