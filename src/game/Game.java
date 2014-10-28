@@ -1,4 +1,6 @@
-package main;
+package game;
+import graphics.GameMap;
+
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -7,7 +9,11 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+
+import mainMenu.Buttons;
+import mainMenu.MainMenu;
 
 public class Game extends Canvas implements Runnable {
     public static int playerHeight = 16;
@@ -15,35 +21,45 @@ public class Game extends Canvas implements Runnable {
     public static int movementSpeed = 2;
 
     public boolean running = false;
+    public boolean INTRO = false;
+    public static boolean MAIN_MENU = true;
+    public static boolean GAME = false;
 
-    private JFrame frame;
-    private Image bufferImage;
-    private Graphics bufferGraphics;
+    public static JFrame frame;
+    protected Image bufferImage;
+    public static Graphics bufferGraphics;
     private Input input;
+    private Buttons buttons;
+    private MainMenu mainMenu;
 
     private Point playerLocation = null;
 
     private GameMap currentLevel;
 
-
+    public static JButton startButton = new JButton("Start"); //Start
+	public static JButton settingsButton = new JButton("Settings"); //Settings
+	public static JButton exitButton = new JButton("Exit"); //Exit
+	
     public Game() {
         Resources.loadResources();
         loadLevel(new GameMap.Level1());
 
         frame = new JFrame("PacMan"); // creates the frame for our game
         input = new Input();
-
-        // if(MAIN_MENU == true && GAME == false){
-        // buttons = new buttons(frame.getContentPane()); //draws the buttons
-        // based on the code in our graphics/buttons.java
-        // }
-
+        
+        if(MAIN_MENU) {
+        	buttons = new Buttons(frame.getContentPane()); //draws the buttons
+        }
+        
         frame.setLayout(new BorderLayout());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // ends program on
                                                                 // click of the
                                                                 // Exit button
                                                                 // in the top
                                                                 // right corner
+        
+        
+        
         frame.setLocationByPlatform(true);
         frame.addKeyListener(new Input());
         frame.add(this, BorderLayout.CENTER);
@@ -74,6 +90,8 @@ public class Game extends Canvas implements Runnable {
 
     }
 
+    
+    
     public void run() {
         long lastTime = System.nanoTime();
         double nsPerTick = 1000000000 / 60D;
@@ -144,10 +162,17 @@ public class Game extends Canvas implements Runnable {
 
         bufferGraphics.setColor(Color.BLACK);
         bufferGraphics.fillRect(0, 0, this.getSize().width, this.getSize().height);
-
-        drawGame(bufferGraphics);
-
+        
+        if(MAIN_MENU && !GAME) {
+        	mainMenu = new MainMenu();
+        }
+        
+        if(GAME) {
+        	drawGame(bufferGraphics);
+        }
+        
         g.drawImage(bufferImage, 0, 0, this);
+        
     }
 
     //renamed from paint, the paint method is used by AWT objects. This caused a serious bug
@@ -208,13 +233,9 @@ public class Game extends Canvas implements Runnable {
         	nextPlayerPosX = nextPlayerPosX - 625;
         }
         
-        // lets make sure the next location doesnt collide with a wall, if so then dont move the pacman!
-        if(!doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_WALL)) {
+         // lets make sure the next location doesnt collide with a wall, if so then dont move the pacman!
+        if(!doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_WALL) && !doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_GHOST_SPAWN)) {
             playerLocation.setLocation(nextPlayerPosX, nextPlayerPosY);
-            
-            if(!doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_GHOST_SPAWN)) {
-                playerLocation.setLocation(nextPlayerPosX, nextPlayerPosY);
-            }
         }
     }
 

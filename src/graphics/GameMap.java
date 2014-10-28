@@ -1,4 +1,4 @@
-package main;
+package graphics;
 import java.awt.Point;
 
 public abstract class GameMap {
