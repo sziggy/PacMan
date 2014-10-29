@@ -19,9 +19,10 @@ public class Buttons{
 	/** in this class we draw the buttons that are showed on the main_menu screen
 	 *  try to get them working in a separate class
 	 */
-	
-	public Buttons(Container pane)
+	public static Container pane;
+	public Buttons(Container panel)
 	{
+		pane = panel;
 		pane.setLayout(null);
 		
 		Game.startButton.addActionListener( new ActionListener() {
@@ -39,6 +40,8 @@ public class Buttons{
 		
 		Game.settingsButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
+            	MainMenu.SETTINGS = true;
+            	MainMenu.MAIN = false;
             	Game.frame.remove(Game.startButton);
         		Game.frame.remove(Game.settingsButton);
         		Game.frame.remove(Game.exitButton);
@@ -59,10 +62,11 @@ public class Buttons{
         } );
 		
 		
-		
+		/*
 		pane.add(Game.startButton);
 		pane.add(Game.settingsButton);
 		pane.add(Game.exitButton);
+		*/
 		
 		
 		Insets insets = pane.getInsets();

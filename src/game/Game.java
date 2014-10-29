@@ -11,6 +11,7 @@ import java.awt.Point;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import mainMenu.Buttons;
 import mainMenu.MainMenu;
@@ -22,15 +23,17 @@ public class Game extends Canvas implements Runnable {
 
     public boolean running = false;
     public boolean INTRO = false;
-    public static boolean MAIN_MENU = true;
-    public static boolean GAME = false;
+    public static boolean MAIN_MENU = false;
+    public static boolean GAME = true;
+    public static boolean LoadButtons = true;
 
     public static JFrame frame;
     protected Image bufferImage;
     public static Graphics bufferGraphics;
     private Input input;
-    private Buttons buttons;
+    public static Buttons buttons;
     private MainMenu mainMenu;
+    public Direction direction = Direction.LEFT;
 
     private Point playerLocation = null;
 
@@ -46,11 +49,10 @@ public class Game extends Canvas implements Runnable {
 
         frame = new JFrame("PacMan"); // creates the frame for our game
         input = new Input();
+        mainMenu = new MainMenu();
         
-        if(MAIN_MENU) {
-        	buttons = new Buttons(frame.getContentPane()); //draws the buttons
-        }
         
+        Game.buttons = new Buttons(Game.frame.getContentPane());
         frame.setLayout(new BorderLayout());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // ends program on
                                                                 // click of the
@@ -164,6 +166,7 @@ public class Game extends Canvas implements Runnable {
         bufferGraphics.fillRect(0, 0, this.getSize().width, this.getSize().height);
         
         if(MAIN_MENU && !GAME) {
+        	MainMenu.MAIN = true;
         	mainMenu = new MainMenu();
         }
         
@@ -202,7 +205,23 @@ public class Game extends Canvas implements Runnable {
             }
         }
         
-        g.drawImage(Resources.PACMAN, playerLocation.x, playerLocation.y, playerWidth, playerHeight, null);
+        switch(direction) {
+        case UP:
+        	g.drawImage(Resources.PACMANUP, playerLocation.x, playerLocation.y, playerWidth, playerHeight, null);
+        	break;
+        	
+        case DOWN:
+        	g.drawImage(Resources.PACMANDOWN, playerLocation.x, playerLocation.y, playerWidth, playerHeight, null);
+        	break;
+        
+        case RIGHT:
+        	g.drawImage(Resources.PACMANRIGHT, playerLocation.x, playerLocation.y, playerWidth, playerHeight, null);
+        	break;
+        	
+        case LEFT:
+        	g.drawImage(Resources.PACMANLEFT, playerLocation.x, playerLocation.y, playerWidth, playerHeight, null);
+        	break;
+        }
     }
 
     public void tick() {
@@ -211,18 +230,22 @@ public class Game extends Canvas implements Runnable {
         int nextPlayerPosY = playerLocation.y;
 
         if (input.key_up) {
+        	direction = Direction.UP;
             nextPlayerPosY -= movementSpeed;
         }
 
         if (input.key_down) {
+        	direction = Direction.DOWN;
             nextPlayerPosY += movementSpeed;
         }
 
         if (input.key_left) {
+        	direction = Direction.LEFT;
             nextPlayerPosX -= movementSpeed;
         }
 
         if (input.key_right) {
+        	direction = Direction.RIGHT;
             nextPlayerPosX += movementSpeed;
         }
         

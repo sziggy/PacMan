@@ -16,7 +16,10 @@ public final class Resources {
     public static final int TILE_HEIGHT = 29;// 720;
 
     public static BufferedImage BACKGROUND = new BufferedImage(TILE_WIDTH, TILE_HEIGHT, BufferedImage.TYPE_INT_RGB);
-    public static BufferedImage PACMAN = new BufferedImage(TILE_WIDTH, TILE_HEIGHT, BufferedImage.TYPE_INT_RGB);
+    public static BufferedImage PACMANUP = new BufferedImage(TILE_WIDTH, TILE_HEIGHT, BufferedImage.TYPE_INT_RGB);
+    public static BufferedImage PACMANDOWN = new BufferedImage(TILE_WIDTH, TILE_HEIGHT, BufferedImage.TYPE_INT_RGB);
+    public static BufferedImage PACMANLEFT = new BufferedImage(TILE_WIDTH, TILE_HEIGHT, BufferedImage.TYPE_INT_RGB);
+    public static BufferedImage PACMANRIGHT = new BufferedImage(TILE_WIDTH, TILE_HEIGHT, BufferedImage.TYPE_INT_RGB);
     public static BufferedImage SETTINGS_BACKGROUND = new BufferedImage(TILE_WIDTH, TILE_HEIGHT, BufferedImage.TYPE_INT_RGB);
     public static BufferedImage LEVEL1 = new BufferedImage(TILE_WIDTH, TILE_HEIGHT, BufferedImage.TYPE_INT_RGB);
     /*public static BufferedImage LEVEL2 = new BufferedImage(TILE_WIDTH, TILE_HEIGHT,
@@ -32,8 +35,11 @@ public final class Resources {
         try { 
             BACKGROUND = ImageIO.read(new File("res\\Background.png"));
             WALL = ImageIO.read(new File("res\\maptile.png"));
-            PACMAN = ImageIO.read(new File("res\\pacman.png"));
-            SETTINGS_BACKGROUND = ImageIO.read(new File("res\\Background.png"));
+            PACMANUP = ImageIO.read(new File("res\\pacmanUp.png"));
+            PACMANDOWN = ImageIO.read(new File("res\\pacmanDown.png"));
+            PACMANLEFT = ImageIO.read(new File("res\\pacmanLeft.png"));
+            PACMANRIGHT = ImageIO.read(new File("res\\pacmanRight.png"));
+            SETTINGS_BACKGROUND = ImageIO.read(new File("res\\settings_background.png"));
             LEVEL1 = ImageIO.read(new File("res\\level1.png"));
             POINT = ImageIO.read(new File("res\\Points for pacman.png"));
             BLACK_BACK = ImageIO.read(new File("res\\blackBack.png"));
