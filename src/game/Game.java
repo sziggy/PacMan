@@ -226,41 +226,106 @@ public class Game extends Canvas implements Runnable {
 
     public void tick() {
 
-        int nextPlayerPosX = playerLocation.x;
+       int nextPlayerPosX = playerLocation.x;
         int nextPlayerPosY = playerLocation.y;
-
-        if (input.key_up) {
-        	direction = Direction.UP;
-            nextPlayerPosY -= movementSpeed;
+        
+        if(nextPlayerPosX < 21) {
+        	nextPlayerPosX = nextPlayerPosX + 601;
         }
+        if(nextPlayerPosX > 605){
+        	nextPlayerPosX = nextPlayerPosX - 600;
+        }
+        
+       
+        if (input.key_up) {
+        	 if(!doesPlayerCollideWith(nextPlayerPosX , nextPlayerPosY -6, GameMap.TILE_WALL)&& !doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_GHOST_SPAWN)) {
+        		 nextPlayerPosY -= movementSpeed;
+        		 direction= Direction.UP;
+                 playerLocation.setLocation(nextPlayerPosX, nextPlayerPosY);
+                 
+        	 } else if(doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY-6, GameMap.TILE_WALL)) {
+        		
+        		 direction(nextPlayerPosX,nextPlayerPosY); 
+        	 }
+        }
+            
+   
 
         if (input.key_down) {
-        	direction = Direction.DOWN;
-            nextPlayerPosY += movementSpeed;
+        	 if(!doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY + 6, GameMap.TILE_WALL)) {
+        		 nextPlayerPosY += movementSpeed;
+        		 direction = Direction.DOWN;
+                 playerLocation.setLocation(nextPlayerPosX, nextPlayerPosY);
+                 
+        	 }else if(doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY+6, GameMap.TILE_WALL)) {
+        		 direction(nextPlayerPosX,nextPlayerPosY); 
+        	 }
+        		 
+            
+        
         }
 
         if (input.key_left) {
-        	direction = Direction.LEFT;
-            nextPlayerPosX -= movementSpeed;
+        	 if(!doesPlayerCollideWith(nextPlayerPosX -3, nextPlayerPosY, GameMap.TILE_WALL)&& !doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_GHOST_SPAWN)) {
+        		 nextPlayerPosX -= movementSpeed;
+        		 direction = Direction.LEFT;
+                 playerLocation.setLocation(nextPlayerPosX, nextPlayerPosY);
+                 
+        	 }else if(doesPlayerCollideWith(nextPlayerPosX -3, nextPlayerPosY, GameMap.TILE_WALL)) {
+        		direction(nextPlayerPosX,nextPlayerPosY); 
+        	 }
+       
         }
-
         if (input.key_right) {
-        	direction = Direction.RIGHT;
-            nextPlayerPosX += movementSpeed;
+        	 if(!doesPlayerCollideWith(nextPlayerPosX+ 3, nextPlayerPosY, GameMap.TILE_WALL)&& !doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_GHOST_SPAWN)) {
+        		 nextPlayerPosX += movementSpeed;
+        		 direction = Direction.RIGHT;
+                 playerLocation.setLocation(nextPlayerPosX, nextPlayerPosY);
+                 
+        	 }else if(doesPlayerCollideWith(nextPlayerPosX+3, nextPlayerPosY, GameMap.TILE_WALL)) {
+        		 direction(nextPlayerPosX,nextPlayerPosY);
+        	 }
+        	
+       
+       }
+        	
+      }
+    
+   public void direction(int nextPlayerPosX ,int nextPlayerPosY){
+        switch(direction) {
+        case UP:
+        	if(!doesPlayerCollideWith(nextPlayerPosX , nextPlayerPosY-6, GameMap.TILE_WALL)){//&& !doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_GHOST_SPAWN)){
+        	 nextPlayerPosY -= movementSpeed;
+             playerLocation.setLocation(nextPlayerPosX, nextPlayerPosY);
+             System.out.println("Up switch");
+         	break;
         }
-        
-        if(nextPlayerPosX < 2) {
-        	nextPlayerPosX = nextPlayerPosX + 625;
+         	
+         case DOWN:
+        	 if(!doesPlayerCollideWith(nextPlayerPosX , nextPlayerPosY+6 , GameMap.TILE_WALL)){//&& !doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_GHOST_SPAWN)){
+        	 nextPlayerPosY += movementSpeed;
+             playerLocation.setLocation(nextPlayerPosX, nextPlayerPosY);
+             System.out.println("down");
+ 	       	break;
+        	 }
+ 	       case RIGHT:
+ 	    	  if (!doesPlayerCollideWith(nextPlayerPosX+3 , nextPlayerPosY, GameMap.TILE_WALL)){//&& !doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_GHOST_SPAWN)){
+ 	 		 nextPlayerPosX += movementSpeed;
+             playerLocation.setLocation(nextPlayerPosX, nextPlayerPosY);
+         	break;
+ 	    	  }
+ 	      
+ 	       case LEFT:
+ 	    	  if(!doesPlayerCollideWith(nextPlayerPosX -3, nextPlayerPosY, GameMap.TILE_WALL)){//&& !doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_GHOST_SPAWN)){
+ 	    	  nextPlayerPosX -= movementSpeed;
+              playerLocation.setLocation(nextPlayerPosX, nextPlayerPosY);
+              System.out.println("left switch");
+ 	        	break;
+ 	    	  }
+ 	        
         }
-        if(nextPlayerPosX > 626){
-        	nextPlayerPosX = nextPlayerPosX - 625;
-        }
-        
-         // lets make sure the next location doesnt collide with a wall, if so then dont move the pacman!
-        if(!doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_WALL) && !doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_GHOST_SPAWN)) {
-            playerLocation.setLocation(nextPlayerPosX, nextPlayerPosY);
-        }
-    }
+   } 
+      
 
     /**
      * Looks at the players screen location and gets the map tiles for each corner.
