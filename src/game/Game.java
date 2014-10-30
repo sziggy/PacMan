@@ -17,8 +17,8 @@ import mainMenu.Buttons;
 import mainMenu.MainMenu;
 
 public class Game extends Canvas implements Runnable {
-    public static int playerHeight = 16;
-    public static int playerWidth = 16;
+    public static int playerHeight = 20;
+    public static int playerWidth = 20;
     public static int movementSpeed = 2;
 
     public boolean running = false;
