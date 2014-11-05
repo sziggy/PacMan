@@ -1,0 +1,55 @@
+public boolean collision( int pTileX, int pTileY){
+		int x =0;
+		int y = 0;
+	
+		Rectangle p = new Rectangle(pTileX, pTileY, playerWidth, playerHeight);
+		
+		
+		if(key_up){
+			x = pTileX / 21;
+			y = (pTileY - 1) /26;
+			
+			if(main.map.level1[y][x] == 0){
+				Rectangle r = new Rectangle(pTileX,pTileY - 1, wall.getWidth(), wall.getHeight());
+				if( r.contains(pTileX, pTileY - 1))return true;
+			}
+			
+		}
+		if(key_down){
+			x = pTileX / 21;
+			y = (pTileY + playerHeight) /26;
+			
+			if(main.map.level1[y][x] == 0){
+					
+				Rectangle r = new Rectangle(pTileX,pTileY + 1, wall.getWidth(), wall.getHeight());
+				if( r.contains(pTileX, pTileY + 1))return true;
+			}
+			
+			
+		}
+		if(key_left){
+			x = (pTileX - 1) / 21;
+			y = pTileY / 26;
+			
+			if(main.map.level1[y][x] == 0){
+				Rectangle r = new Rectangle(pTileX - 1,pTileY, wall.getWidth(), wall.getHeight());
+				if( r.contains(pTileX - 1, pTileY))return true;
+			}
+			
+			
+		}
+		if(key_right){
+			x = (pTileX +  playerWidth) / 21;
+			y = pTileY / 26;
+			
+			if(main.map.level1[y][x] == 0){
+				Rectangle r = new Rectangle(pTileX,pTileY, wall.getWidth() , wall.getHeight());
+				if( r.contains(pTileX, pTileY))return true;
+			
+			}
+			
+			
+		}
+		return false;
+	}
+}
