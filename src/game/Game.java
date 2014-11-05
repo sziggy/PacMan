@@ -224,9 +224,9 @@ public class Game extends Canvas implements Runnable {
         }
     }
 
-    public void tick() {
+   public void tick() {
 
-       int nextPlayerPosX = playerLocation.x;
+        int nextPlayerPosX = playerLocation.x;
         int nextPlayerPosY = playerLocation.y;
         
         if(nextPlayerPosX < 21) {
@@ -297,7 +297,6 @@ public class Game extends Canvas implements Runnable {
         	if(!doesPlayerCollideWith(nextPlayerPosX , nextPlayerPosY-6, GameMap.TILE_WALL)){//&& !doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_GHOST_SPAWN)){
         	 nextPlayerPosY -= movementSpeed;
              playerLocation.setLocation(nextPlayerPosX, nextPlayerPosY);
-             System.out.println("Up switch");
          	break;
         }
          	
@@ -305,7 +304,6 @@ public class Game extends Canvas implements Runnable {
         	 if(!doesPlayerCollideWith(nextPlayerPosX , nextPlayerPosY+6 , GameMap.TILE_WALL)){//&& !doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_GHOST_SPAWN)){
         	 nextPlayerPosY += movementSpeed;
              playerLocation.setLocation(nextPlayerPosX, nextPlayerPosY);
-             System.out.println("down");
  	       	break;
         	 }
  	       case RIGHT:
@@ -319,12 +317,11 @@ public class Game extends Canvas implements Runnable {
  	    	  if(!doesPlayerCollideWith(nextPlayerPosX -3, nextPlayerPosY, GameMap.TILE_WALL)){//&& !doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_GHOST_SPAWN)){
  	    	  nextPlayerPosX -= movementSpeed;
               playerLocation.setLocation(nextPlayerPosX, nextPlayerPosY);
-              System.out.println("left switch");
  	        	break;
  	    	  }
  	        
         }
-   } 
+   }
       
 
     /**
