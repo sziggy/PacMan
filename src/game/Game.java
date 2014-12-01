@@ -241,10 +241,11 @@ public class Game extends Canvas implements Runnable {
         	 if(!doesPlayerCollideWith(nextPlayerPosX , nextPlayerPosY -6, GameMap.TILE_WALL)&& !doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_GHOST_SPAWN)) {
         		 nextPlayerPosY -= movementSpeed;
         		 direction= Direction.UP;
+        		 points(nextPlayerPosX, nextPlayerPosY);
                  playerLocation.setLocation(nextPlayerPosX, nextPlayerPosY);
                  
         	 } else if(doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY-6, GameMap.TILE_WALL)) {
-        		
+        		points(nextPlayerPosX, nextPlayerPosY);
         		 direction(nextPlayerPosX,nextPlayerPosY); 
         	 }
         }
@@ -255,9 +256,11 @@ public class Game extends Canvas implements Runnable {
         	 if(!doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY + 6, GameMap.TILE_WALL)) {
         		 nextPlayerPosY += movementSpeed;
         		 direction = Direction.DOWN;
+        		 points(nextPlayerPosX, nextPlayerPosY);
                  playerLocation.setLocation(nextPlayerPosX, nextPlayerPosY);
                  
         	 }else if(doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY+6, GameMap.TILE_WALL)) {
+        	 	points(nextPlayerPosX, nextPlayerPosY);
         		 direction(nextPlayerPosX,nextPlayerPosY); 
         	 }
         		 
@@ -269,9 +272,11 @@ public class Game extends Canvas implements Runnable {
         	 if(!doesPlayerCollideWith(nextPlayerPosX -3, nextPlayerPosY, GameMap.TILE_WALL)&& !doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_GHOST_SPAWN)) {
         		 nextPlayerPosX -= movementSpeed;
         		 direction = Direction.LEFT;
+        		 points(nextPlayerPosX, nextPlayerPosY);
                  playerLocation.setLocation(nextPlayerPosX, nextPlayerPosY);
                  
         	 }else if(doesPlayerCollideWith(nextPlayerPosX -3, nextPlayerPosY, GameMap.TILE_WALL)) {
+        	 	points(nextPlayerPosX, nextPlayerPosY);
         		direction(nextPlayerPosX,nextPlayerPosY); 
         	 }
        
@@ -280,9 +285,11 @@ public class Game extends Canvas implements Runnable {
         	 if(!doesPlayerCollideWith(nextPlayerPosX+ 3, nextPlayerPosY, GameMap.TILE_WALL)&& !doesPlayerCollideWith(nextPlayerPosX, nextPlayerPosY, GameMap.TILE_GHOST_SPAWN)) {
         		 nextPlayerPosX += movementSpeed;
         		 direction = Direction.RIGHT;
+        		 points(nextPlayerPosX, nextPlayerPosY);
                  playerLocation.setLocation(nextPlayerPosX, nextPlayerPosY);
                  
         	 }else if(doesPlayerCollideWith(nextPlayerPosX+3, nextPlayerPosY, GameMap.TILE_WALL)) {
+        	 	points(nextPlayerPosX, nextPlayerPosY);
         		 direction(nextPlayerPosX,nextPlayerPosY);
         	 }
         	
@@ -322,6 +329,78 @@ public class Game extends Canvas implements Runnable {
  	        
         }
    }
+      public boolean points( int pTileX, int pTileY){
+		int x =0;
+		int y = 0;
+		
+		int[][] level = GameMap.LEVEL_1_DATA;
+		Rectangle p = new Rectangle(pTileX, pTileY, playerWidth, playerHeight);
+		
+		
+		 switch(direction) {
+	        case UP:
+	        	x = pTileX / 23;
+				y = (pTileY - 1) /29;
+				
+				if(level[y][x] == 1){
+				Rectangle r = new Rectangle(pTileX,pTileY - 1, Resources.TILE_WIDTH, Resources.TILE_WIDTH);
+					if( r.contains(pTileX, pTileY - 1)){
+ 						points= points + 1;
+ 						System.out.println(points);
+ 						level[y][x] = 4;
+ 						return true;
+ 					}
+	         	break;
+	        }
+	         	
+	         case DOWN:
+	     		x = pTileX / 23;
+				y = (pTileY + playerHeight) /29;
+				
+				if(level[y][x] == 1){
+						
+				Rectangle r = new Rectangle(pTileX,pTileY + 1, Resources.TILE_WIDTH, Resources.TILE_WIDTH);
+					if( r.contains(pTileX, pTileY + 1)){
+						points= points + 1;
+ 						System.out.println(points);
+ 						level[y][x] = 4;
+ 						return true;
+ 					}
+				}
+	 	       	break;
+	        	 
+	 	       case RIGHT:
+	 	    		x = (pTileX +  playerWidth) / 23;
+	 				y = pTileY / 29;
+	 				
+	 				if(level[y][x] == 1){
+	 					Rectangle r = new Rectangle(pTileX,pTileY, Resources.TILE_WIDTH, Resources.TILE_WIDTH);
+	 					if( r.contains(pTileX, pTileY)){
+	 						points++;
+	 						level[y][x] = 4;
+	 						return true;
+	 					}
+	 	    	  }
+	 	      
+	 	       case LEFT:
+	 	    	  x = (pTileX - 1) / 23;
+	 				y = pTileY / 29;
+	 				
+	 				if(level[y][x] == 1){
+	 					Rectangle r = new Rectangle(pTileX - 1,pTileY, Resources.TILE_WIDTH, Resources.TILE_WIDTH);
+	 					if( r.contains(pTileX - 1, pTileY)){
+	 						points++;
+	 						level[y][x] = 4;
+	 						return true;
+	 					}
+	 	        	break;
+	 	    	  }
+	 	        
+	        }
+		
+			return false;
+		}
+	
       
 
     /**
@@ -345,6 +424,7 @@ public class Game extends Canvas implements Runnable {
         corners[3] = currentLevel.getTileAt(tileLocation.x, tileLocation.y);
         return corners;
     }
+    
  
     /**
      * Checks if any corners of the player intersects with the given mapTileType
